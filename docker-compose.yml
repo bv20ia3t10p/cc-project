@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .                 # Path to the Dockerfile
+      dockerfile: cc-storefront/Dockerfile     # Optional if the file is named `Dockerfile`
+    ports:
+      - "5173:5173"              # Expose port 3000 for local development
+    volumes:
+      - ./cc-storefront:/usr/src/app  # Mount code for hot reloading
+      - /usr/src/app/node_modules     # Use container's node_modules
+    environment:
+      NODE_ENV: development
