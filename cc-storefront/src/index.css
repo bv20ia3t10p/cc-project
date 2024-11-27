@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Override Ant Design's default styles */
+.ant-btn-primary {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.ant-layout {
+  background-color: #000;
+}
+
+.ant-layout-header {
+  background-color: #000;
+  color: #fff;
+}
+
+.ant-typography {
+  color: #000;
+}

@@ -1,7 +1,7 @@
 import { HeaderConfiguration } from "./../../../models/api/HeaderConfiguration";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { IApiClient } from "./IApiClient";
-import { IApiClientException } from "../exceptions/IApiClientException";
+import { IApiClientException } from "../exceptions/ApiClientException";
 
 export class ApiClient<T> implements IApiClient<T> {
   private axiosInstance: AxiosInstance;
@@ -53,35 +53,51 @@ export class ApiClient<T> implements IApiClient<T> {
     throw new Error("Method not implemented.");
   }
 
-  public async get(path: string, params: Record<string, string>): Promise<T> {
+  public async get({
+    path,
+    params,
+  }: {
+    path: string;
+    params?: Record<string, string>;
+  }): Promise<T> {
     const response = await this.axiosInstance.get<T>(path, { params });
     return response.data;
   }
 
-  public async post(
-    path: string,
-    params: Record<string, string>,
-    body: Record<string, string>
-  ): Promise<T> {
+  public async post({
+    path,
+    params,
+    body,
+  }: {
+    path: string;
+    params?: Record<string, string>;
+    body?: Record<string, string>;
+  }): Promise<T> {
     const response = await this.axiosInstance.post<T>(path, body, { params });
     return response.data;
   }
 
-  public async put(
-    path: string,
-    params: Record<string, string>,
-    body: Record<string, string>
-  ): Promise<T> {
+  public async put({
+    path,
+    params,
+    body,
+  }: {
+    path: string;
+    params?: Record<string, string>;
+    body?: Record<string, string>;
+  }): Promise<T> {
     const response = await this.axiosInstance.put<T>(path, body, { params });
     return response.data;
   }
 
-  public async delete(
-    path: string,
-    params: Record<string, string>
-  ): Promise<T> {
+  public async delete({
+    path,
+    params,
+  }: {
+    path: string;
+    params?: Record<string, string>;
+  }): Promise<T> {
     const response = await this.axiosInstance.delete<T>(path, { params });
     return response.data;
   }
-  
 }
