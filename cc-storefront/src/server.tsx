@@ -4,7 +4,7 @@ import fs from "fs";
 import { createServer } from "vite";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import App from "./App"; // Replace with your actual React App component
+import { render } from "./server-entry";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -40,7 +40,7 @@ async function createViteServer() {
       }
 
       // Render the app using React SSR
-      const appHtml = ReactDOMServer.renderToString(<App />);
+      const appHtml = render();
 
       // Inject the app HTML into the template
       const html = template.replace("<!--app-html-->", appHtml);
