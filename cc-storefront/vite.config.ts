@@ -18,12 +18,11 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    ssr: "src/server-entry.tsx",
+    outDir: "dist", // Ensure the build files are placed in the 'dist' folder
+    ssr: "src/server.tsx", // Specify the entry point for SSR
     rollupOptions: {
-      input: {
-        client: "src/client-entry.tsx",
-      },
+      input: "src/index.html", // Entry point for the client-side
     },
-    outDir: "dist",
   },
+  base: "/", // Base URL for deployment
 });
