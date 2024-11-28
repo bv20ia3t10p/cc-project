@@ -1,32 +1,49 @@
 import express from 'express';
+import path from 'path';
+import fs from 'fs';
 import { createServer } from 'vite';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import App from './App'; // Your root React component
 
-const app = express();
+const isProd = process.env.NODE_ENV === 'production';
 
-app.all('*', async (_req, res) => {
+async function createViteServer() {
   const vite = await createServer({
-    server: { middlewareMode: true }, // Enables SSR mode
+    server: { middlewareMode: true },
+    appType: 'custom',
+  });
+  const app = express();
+
+  // Apply Vite's middleware in development
+  app.use(vite.middlewares);
+
+  app.get('*', async (req, res) => {
+    const url = req.originalUrl;
+
+    try {
+      // Always serve the index.html for SSR
+      let template;
+      if (isProd) {
+        template = fs.readFileSync(path.resolve(__dirname, 'dist/index.html'), 'utf-8');
+      } else {
+        template = await vite.transformIndexHtml(url, fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8'));
+      }
+
+      // Render the app here using React SSR logic
+      const appHtml = `<div id="app">Your React App</div>`;
+
+      // Inject the app HTML into the template
+      const html = template.replace('<!--app-html-->', appHtml);
+      res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+    } catch (error) {
+      // vite.ssrFixStacktrace(error);
+      // res.status(500).send(error.message);
+    }
   });
 
-  app.use(vite.middlewares); // Use Vite middlewares for dev
+  return app;
+}
 
-  // Render the React app to a string on the server side
-  const appHtml = ReactDOMServer.renderToString(<App />);
-
-  // Send back the full HTML
-  res.status(200).set({ 'Content-Type': 'text/html' }).send(`
-    <!DOCTYPE html>
-    <html>
-      <head><title>SSR React App</title></head>
-      <body>
-        <div id="app">${appHtml}</div>
-        <script type="module" src="/assets/main.js"></script>
-      </body>
-    </html>
-  `);
+createViteServer().then(app => {
+  app.listen(3000, () => {
+    console.log('Server is running at http://localhost:3000');
+  });
 });
-
-export default app;
