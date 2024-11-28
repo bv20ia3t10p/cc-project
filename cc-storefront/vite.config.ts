@@ -1,42 +1,30 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 
 export default defineConfig({
   server: {
-    host: "0.0.0.0",
-    port: 5173,
+    host: '0.0.0.0', // Expose the app to the network
+    port: 5173, // Port for dev server
     watch: {
-      usePolling: true,
-    },
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
+      usePolling: true, // Useful for Docker or network file systems
     },
   },
   plugins: [react()],
-  build: {
-    outDir: "dist", // Output folder for Vite build
-    ssr: "src/server.tsx", // SSR entry point (optional for SSR)
-    rollupOptions: {
-      input: path.resolve(__dirname, "src/index.html"), // Ensuring index.html is included in the build
-      output: {
-        // This will ensure TypeScript files don't get copied to the dist folder
-        // or be included in the final build output.
-        assetFileNames: ({ name }) => {
-          if (name && name.endsWith(".ts")) {
-            return ""; // Prevent .ts files from being written to the dist folder
-          }
-          return "assets/[name].[hash][extname]";
-        },
-      },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'), // Alias for src folder
     },
-    // You can also specify whether or not to include source maps for TypeScript files
-    sourcemap: false,
+  },
+  build: {
+    outDir: 'dist', // Output directory for build
+    ssr: 'src/server-entry.tsx', // SSR entry point for server-side rendering
+    rollupOptions: {
+      input: 'src/index.html', // Ensure index.html is included in the build process
+    },
   },
   ssr: {
-    external: ["react", "react-dom"],
+    external: ['react', 'react-dom'], // Externalize react and react-dom for SSR
   },
-  base: "/",
+  base: '/', // Base URL for deployment
 });
