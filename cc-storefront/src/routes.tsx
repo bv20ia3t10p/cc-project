@@ -9,7 +9,7 @@ const LoginForm = lazy(() => import("./layouts/login/LoginForm"));
 export const createRoutes = () => {
   const appRoutes = [
     {
-      path: "",
+      path: "/",
       element: (
         <Page>
           <Outlet />
@@ -17,11 +17,11 @@ export const createRoutes = () => {
       ),
       children: [
         {
-          path: "/",
+          path: "login",
           element: <LoginForm />,
         },
         {
-          path: "/register",
+          path: "register",
           element: <RegisterForm />,
         },
       ],
