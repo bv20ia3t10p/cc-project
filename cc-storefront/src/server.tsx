@@ -1,16 +1,16 @@
 import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import App from './App'; // Import your App component
+import App from './App';
 
 const app = express();
 
-// Serve static files from 'dist' (where Vite builds assets)
+// Serve static files from 'dist' (Vite build output)
 app.use(express.static('dist'));
 
-// Handle all routes (so React Router can handle them)
+// Handle all routes
 app.get('*', (req, res) => {
-  const appHtml = renderToString(<App />); // Render App to HTML string
+  const appHtml = renderToString(<App />);
   const html = `
     <!DOCTYPE html>
     <html lang="en">
@@ -20,14 +20,17 @@ app.get('*', (req, res) => {
         <title>React SSR App</title>
       </head>
       <body>
-        <div id="root">${appHtml}</div> <!-- Inject the rendered HTML here -->
-        <script src="/main.js"></script> <!-- Reference to your Vite build output -->
+        <div id="root">${appHtml}</div>
+        <script src="/main.js"></script> <!-- Vite bundle -->
       </body>
     </html>
   `;
-  res.status(200).send(html); // Send the rendered HTML to the client
+  res.status(200).send(html);
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+// Use the PORT environment variable provided by Vercel (or fallback to 3000 for local testing)
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
