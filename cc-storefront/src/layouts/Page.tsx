@@ -47,20 +47,11 @@ const Page: React.FC<IProps> = ({ children }) => {
           </Col>
           <Col span={14}>
             <Row justify={"space-between"}>
-              <Col span={8} className="pl-12">
+              <Col className="pl-12">
                 <Row justify={"space-evenly"}>
-                  <Link href="Home">
-                    <Typography.Title level={5}>Home</Typography.Title>
-                  </Link>
-                  <Link href="Home">
-                    <Typography.Title level={5}>About</Typography.Title>
-                  </Link>
-                  <Link href="Home">
-                    <Typography.Title level={5}>Products</Typography.Title>
-                  </Link>
                 </Row>
               </Col>
-              <Col span={8}>
+              <Col>
                 <Row className="h-full" justify={"space-evenly"}>
                   <Badge count={5} overflowCount={99} size="small">
                     <Button

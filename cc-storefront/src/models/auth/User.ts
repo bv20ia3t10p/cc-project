@@ -16,7 +16,6 @@ export class User extends Entity {
   public refreshToken: string = "";
   public roles: Array<string> = User.defaultUserRole;
 
-
   constructor({
     username,
     email,

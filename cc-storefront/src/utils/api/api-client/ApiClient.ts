@@ -10,6 +10,7 @@ export class ApiClient<T> implements IApiClient<T> {
     const config: AxiosRequestConfig = {
       baseURL: baseUrl,
       headers: headerConfiguration.toHeaders(),
+      withCredentials: false
     };
     this.axiosInstance = axios.create(config);
     this.setupInterceptors();
@@ -19,7 +20,6 @@ export class ApiClient<T> implements IApiClient<T> {
     // Request interceptor
     this.axiosInstance.interceptors.request.use(
       (config) => {
-        console.log("Request made: ", config);
         return config;
       },
       (error) => {
@@ -31,7 +31,6 @@ export class ApiClient<T> implements IApiClient<T> {
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => {
         // Handle successful responses
-        console.log("Response received:", response);
         return response;
       },
       (error) => {
