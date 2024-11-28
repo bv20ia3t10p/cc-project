@@ -125,7 +125,8 @@ const RegisterForm: React.FC = () => {
           <Form.Item
             label={
               <Typography>
-                Already got an account? Redirect me to <Link>login page</Link>
+                Already got an account? Redirect me to{" "}
+                <Link href="/login">login page</Link>
               </Typography>
             }
             labelAlign="right"

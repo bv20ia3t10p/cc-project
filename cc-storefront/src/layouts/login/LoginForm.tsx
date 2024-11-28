@@ -11,7 +11,7 @@ export const LoginForm: React.FC = () => {
   const { isLoggingIn, login, user } = useUserService();
   const [form] = useForm();
   return (
-    <div className="container p-8 mx-auto my-auto shadow-xl bg-grey-100">
+    <div className="container p-8 mx-auto my-auto bg-grey-100">
       <Form
         disabled={isLoggingIn}
         form={form}
@@ -41,7 +41,7 @@ export const LoginForm: React.FC = () => {
           <Form.Item
             label={
               <Typography>
-                Don't have an account? <Link href="">Create one!</Link>
+                Don't have an account? <Link href="/register">Create one!</Link>
               </Typography>
             }
             labelAlign="right"

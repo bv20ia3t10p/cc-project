@@ -1,22 +1,14 @@
 import {
-  Badge,
-  Button,
-  Col,
-  Input,
-  Layout,
-  Row,
-  Space,
-  Typography,
-} from "antd";
-import { Content, Footer, Header } from "antd/es/layout/layout";
-import Logo from "../components/Logo";
-import {
   GithubOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
+import { Badge, Button, Col, Input, Layout, Row, Typography } from "antd";
+import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "antd/es/typography/Link";
 import React from "react";
+import Logo from "../components/Logo";
 import { IProps } from "../interfaces/IProps";
 
 const Page: React.FC<IProps> = ({ children }) => {
@@ -48,18 +40,18 @@ const Page: React.FC<IProps> = ({ children }) => {
           <Col span={14}>
             <Row justify={"space-between"}>
               <Col className="pl-12">
-                <Row justify={"space-evenly"}>
-                </Row>
+                <Row justify={"space-evenly"}></Row>
               </Col>
               <Col>
-                <Row className="h-full" justify={"space-evenly"}>
-                  <Badge count={5} overflowCount={99} size="small">
-                    <Button
-                      className="text-4xl"
-                      type="text"
-                      icon={<ShoppingCartOutlined />}
-                    />
-                  </Badge>
+                <Row className="h-full" justify={"space-between"}>
+                  <Col span={8}>
+                    <Badge count={5} overflowCount={99} size='default'>
+                      <Button size={"large"} icon={<ShoppingCartOutlined />} />
+                    </Badge>
+                  </Col>
+                  <Col span={8}>
+                    <Button size="large" icon={<UserOutlined />} />
+                  </Col>
                 </Row>
               </Col>
             </Row>
