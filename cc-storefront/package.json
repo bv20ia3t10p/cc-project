@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "node server.js",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run copy-index",
+    "copy-index": "copyfiles ./index.html ./dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },
