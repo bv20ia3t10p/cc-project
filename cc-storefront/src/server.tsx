@@ -1,36 +1,32 @@
 import express from 'express';
+import { createServer } from 'vite';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import App from './App';
+import ReactDOMServer from 'react-dom/server';
+import App from './App'; // Your root React component
 
 const app = express();
 
-// Serve static files from 'dist' (Vite build output)
-app.use(express.static('dist'));
+app.all('*', async (_req, res) => {
+  const vite = await createServer({
+    server: { middlewareMode: true }, // Enables SSR mode
+  });
 
-// Handle all routes
-app.get('*', (req, res) => {
-  const appHtml = renderToString(<App />);
-  const html = `
+  app.use(vite.middlewares); // Use Vite middlewares for dev
+
+  // Render the React app to a string on the server side
+  const appHtml = ReactDOMServer.renderToString(<App />);
+
+  // Send back the full HTML
+  res.status(200).set({ 'Content-Type': 'text/html' }).send(`
     <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>React SSR App</title>
-      </head>
+    <html>
+      <head><title>SSR React App</title></head>
       <body>
-        <div id="root">${appHtml}</div>
-        <script src="/main.js"></script> <!-- Vite bundle -->
+        <div id="app">${appHtml}</div>
+        <script type="module" src="/assets/main.js"></script>
       </body>
     </html>
-  `;
-  res.status(200).send(html);
+  `);
 });
 
-// Use the PORT environment variable provided by Vercel (or fallback to 3000 for local testing)
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+export default app;
