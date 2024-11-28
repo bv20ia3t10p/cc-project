@@ -1,10 +1,8 @@
 import express from "express";
-import path from "path";
 import fs from "fs";
+import path from "path";
 import { createServer } from "vite";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { render } from "./server-entry";
+import { render } from "@/server-entry";
 
 const isProd = process.env.NODE_ENV === "production";
 

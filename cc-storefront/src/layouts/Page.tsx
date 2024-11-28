@@ -1,3 +1,5 @@
+import Logo from "@/components/Logo";
+import { IProps } from "@/interfaces/IProps";
 import {
   GithubOutlined,
   SearchOutlined,
@@ -8,8 +10,7 @@ import { Badge, Button, Col, Input, Layout, Row, Typography } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "antd/es/typography/Link";
 import React from "react";
-import Logo from "../components/Logo";
-import { IProps } from "../interfaces/IProps";
+
 
 const Page: React.FC<IProps> = ({ children }) => {
   return (

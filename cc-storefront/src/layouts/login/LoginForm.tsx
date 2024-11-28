@@ -1,5 +1,4 @@
 import React from "react";
-import Page from "../Page";
 import { Button, Form, Input, Row, Typography } from "antd";
 import { useUserService } from "@/hooks/useUserService";
 import { useForm } from "antd/es/form/Form";

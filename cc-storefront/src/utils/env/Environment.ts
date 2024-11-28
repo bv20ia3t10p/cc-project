@@ -1,4 +1,4 @@
-import { EnvironmentVariablesException } from "../api/exceptions/EnvironmentVariablesException";
+import { EnvironmentVariablesException } from "@/utils/api/exceptions/EnvironmentVariablesException";
 
 export class Environment {
   public static getEnvVariable(key: string) {

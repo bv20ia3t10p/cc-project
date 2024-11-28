@@ -1,6 +1,6 @@
 // routes.tsx
 import { lazy } from "react";
-import { Outlet, useRoutes } from "react-router";
+import { Outlet } from "react-router";
 
 const Page = lazy(() => import("./layouts/Page"));
 const RegisterForm = lazy(() => import("./layouts/register/RegisterForm"));

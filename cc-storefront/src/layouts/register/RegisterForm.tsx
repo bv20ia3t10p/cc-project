@@ -6,11 +6,10 @@ import {
 } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Splitter, Typography } from "antd";
 import { useEffect } from "react";
-import { usePageLayout } from "../../hooks/usePageLayout";
-import { useUserService } from "../../hooks/useUserService";
-import Page from "../Page";
 import Link from "antd/es/typography/Link";
 import { User } from "@/models/auth/User";
+import { usePageLayout } from "@/hooks/usePageLayout";
+import { useUserService } from "@/hooks/useUserService";
 
 const RegisterForm: React.FC = () => {
   const { user, createUser, isPending } = useUserService();

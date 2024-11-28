@@ -1,8 +1,7 @@
 import { HeaderConfiguration } from "@/models/api/HeaderConfiguration";
 import { Environment } from "@/utils/env/Environment";
-import { ApiClient } from "./ApiClient";
 import { User } from "@/models/auth/User";
-import { Entity } from "@/models/Entity";
+import { ApiClient } from "@/utils/api/api-client/ApiClient";
 
 export class AuthApiClient extends ApiClient<User> {
   constructor() {

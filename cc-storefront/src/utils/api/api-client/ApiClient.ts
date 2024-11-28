@@ -1,7 +1,8 @@
-import { HeaderConfiguration } from "./../../../models/api/HeaderConfiguration";
+import { HeaderConfiguration } from "@/models/api/HeaderConfiguration";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { IApiClient } from "./IApiClient";
-import { IApiClientException } from "../exceptions/ApiClientException";
+import { IApiClient } from "@/utils/api/api-client/IApiClient";
+import { IApiClientException } from "@/utils/api/exceptions/ApiClientException";
+
 
 export class ApiClient<T> implements IApiClient<T> {
   private axiosInstance: AxiosInstance;
