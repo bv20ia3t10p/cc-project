@@ -17,14 +17,14 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    outDir: "dist",  // Output folder
-    ssr: "src/server.tsx", // SSR entry point (optional if using SSR)
+    outDir: "dist",  // Output folder for Vite build
+    ssr: "src/server.tsx",  // SSR entry point (optional for SSR)
     rollupOptions: {
-      input: "src/index.html", // Ensure index.html is included
+      input: "src/index.html",  // Ensuring index.html is included in the build
     },
   },
   ssr: {
     external: ["react", "react-dom"],
   },
-  base: "/",  // Ensure this is set to the correct base URL
+  base: "/",  // Base URL
 });
