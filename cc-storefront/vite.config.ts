@@ -4,29 +4,27 @@ import path from "path";
 
 export default defineConfig({
   server: {
-    host: "0.0.0.0", // Expose the app to the network (useful for Docker)
-    port: 5173, // Port you want to use (optional, defaults to 5173)
+    host: "0.0.0.0",
+    port: 5173,
     watch: {
-      usePolling: true, // Force Vite to use polling for file watching (useful in Docker)
+      usePolling: true,
     },
-    middlewareMode: true, // Enable SSR middleware mode
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // Alias for src directory
+      "@": path.resolve(__dirname, "src"),
     },
   },
   plugins: [react()],
   build: {
-    outDir: "dist", // Output directory for build
-    ssr: "src/server.tsx", // SSR entry point (server-side entry)
+    outDir: "dist",  // Output folder
+    ssr: "src/server.tsx", // SSR entry point (optional if using SSR)
     rollupOptions: {
-      input: "src/index.html", // Client-side entry point
+      input: "src/index.html", // Ensure index.html is included
     },
   },
   ssr: {
-    // Ensure SSR build points to the correct external libraries
     external: ["react", "react-dom"],
   },
-  base: "/", // Base URL for deployment (ensure this is correct)
+  base: "/",  // Ensure this is set to the correct base URL
 });
