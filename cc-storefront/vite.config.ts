@@ -18,16 +18,7 @@ export default defineConfig({
   },
   plugins: [react()],
   build: {
-    outDir: 'dist',  // Output folder for Vite build
-    ssr: 'src/server.tsx',  // SSR entry point
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src/index.html') // Ensure this points to your HTML file
-      },
-    },
-  },
-  ssr: {
-    external: ['react', 'react-dom'],
+    outDir: 'dist', // Output directory for production build
   },
   base: '/',
 });
