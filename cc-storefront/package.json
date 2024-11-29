@@ -4,11 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "serve": "node server.js",
     "dev": "vite",
-    "build": "tsc -b && vite build && npm run copy-index",
-    "copy-index": "copyfiles ./index.html ./dist",
-    "lint": "eslint .",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {

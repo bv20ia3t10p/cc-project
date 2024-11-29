@@ -17,8 +17,5 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  build: {
-    outDir: 'dist', // Output directory for production build
-  },
   base: '/',
 });
