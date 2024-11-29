@@ -1,8 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Logo: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <svg
+      onClick={() => {
+        navigate("/");
+      }}
+      cursor='pointer'
       viewBox="0 0 100 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

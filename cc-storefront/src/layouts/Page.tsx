@@ -11,7 +11,6 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import Link from "antd/es/typography/Link";
 import React from "react";
 
-
 const Page: React.FC<IProps> = ({ children }) => {
   return (
     <Layout className="min-h-screen">
@@ -25,28 +24,40 @@ const Page: React.FC<IProps> = ({ children }) => {
               <Logo />
             </Row>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <Row align={"middle"}>
               <Input.Search
                 inputMode="search"
                 className="h-full"
                 allowClear
-                placeholder="input search text"
+                placeholder="Search for products, names, brands,... "
                 enterButton={<SearchOutlined />}
+                type="outlined"
                 size="large"
                 onSearch={() => {}}
               />
             </Row>
           </Col>
-          <Col span={14}>
-            <Row justify={"space-between"}>
-              <Col className="pl-12">
-                <Row justify={"space-evenly"}></Row>
+          <Col span={16}>
+            <Row justify={"space-evenly"} align={"middle"} className="h-full">
+              <Col span={4}>
+                <Row justify={"space-between"}>
+                  <Link>
+                    <Typography>Home</Typography>
+                  </Link>
+                  <Link>
+                    <Typography>Products</Typography>
+                  </Link>
+                  <Link>
+                    <Typography>About</Typography>
+                  </Link>
+                </Row>
               </Col>
+              <Col span={10}></Col>
               <Col>
                 <Row className="h-full" justify={"space-between"}>
                   <Col span={8}>
-                    <Badge count={5} overflowCount={99} size='default'>
+                    <Badge count={5} overflowCount={99} size="default">
                       <Button size={"large"} icon={<ShoppingCartOutlined />} />
                     </Badge>
                   </Col>
