@@ -13,7 +13,7 @@ const Page: React.FC<IProps> = ({ children }) => {
   return (
     <Layout className="min-h-screen">
       <AppHeader />
-      <Content className="bg-white ">{children}</Content>
+      <Content className="overflow-x-hidden bg-white">{children}</Content>
       <Footer>
         <Row>
           <Col span={20}>

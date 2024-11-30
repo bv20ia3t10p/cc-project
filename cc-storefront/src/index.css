@@ -19,3 +19,46 @@
 .ant-typography {
   color: #000;
 }
+
+/* Apply white background and black arrows to Swiper navigation buttons */
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #fff; /* White background for the buttons */
+  color: black; /* Black arrows */
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 10px; /* Adjust arrow size */
+  color: black; /* Black color for the arrows */
+}
+
+/* Optional: Hover effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white; /* White arrows on hover */
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 10px; /* Adjust the arrow size */
+}
+
+/* Pagination Bullet Style */
+.swiper-pagination-bullet {
+  background-color: black !important; /* Black background for pagination bullets */
+  width: 12px; /* Adjust bullet size */
+  height: 12px; /* Adjust bullet size */
+  opacity: 1; /* Full opacity */
+}
+
+/* Active Pagination Bullet */
+.swiper-pagination-bullet-active {
+  background-color: black !important; /* White background for the active bullet */
+  transform: scale(1.5); /* Optionally, enlarge the active bullet */
+}
+
+/* Hover effect for pagination bullets */
+.swiper-pagination-bullet:hover {
+  background-color: grey !important; /* Optional: Gray on hover */
+}

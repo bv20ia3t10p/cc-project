@@ -4,21 +4,21 @@ import { Banner } from "./Banner";
 import BreadcrumbItem from "antd/es/breadcrumb/BreadcrumbItem";
 import { HomeOutlined } from "@ant-design/icons";
 import { Link } from "react-router";
+import { CategoriesSection } from "./CategoriesSection";
+import { ProductsSection } from "./ProductsSession";
 
 export const StoreFront: React.FC = () => {
   return (
     <>
       <Banner />
-      <Breadcrumb className="mx-20 my-4">
-        <BreadcrumbItem>
-          <Link to='/'>
-            <Typography>
-              <HomeOutlined /> Home
-            </Typography>
-          </Link>
-        </BreadcrumbItem>
-      </Breadcrumb>
-      
+      <Breadcrumb className="mt-5 ml-72"
+        items={[
+          { title: <><HomeOutlined /> Home</>, breadcrumbName: 'Home', path: '/' },
+          { title: 'Products', breadcrumbName: 'Products', 'path': '/' }
+        ]}
+      />
+      <CategoriesSection />
+      <ProductsSection />
     </>
   );
 };

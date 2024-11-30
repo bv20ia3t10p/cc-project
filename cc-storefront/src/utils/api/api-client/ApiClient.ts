@@ -3,15 +3,17 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { IApiClient } from "@/utils/api/api-client/IApiClient";
 import { IApiClientException } from "@/utils/api/exceptions/ApiClientException";
 
-
 export class ApiClient<T> implements IApiClient<T> {
   private axiosInstance: AxiosInstance;
 
-  constructor(baseUrl: string, headerConfiguration: HeaderConfiguration) {
+  constructor(
+    baseUrl: string,
+    headerConfiguration: HeaderConfiguration = new HeaderConfiguration()
+  ) {
     const config: AxiosRequestConfig = {
       baseURL: baseUrl,
       headers: headerConfiguration.toHeaders(),
-      withCredentials: false
+      withCredentials: false,
     };
     this.axiosInstance = axios.create(config);
     this.setupInterceptors();
