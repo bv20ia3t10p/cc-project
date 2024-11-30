@@ -1,23 +1,31 @@
-import { Col, Row } from "antd";
+import { Button, Col, Row, Typography } from "antd";
 import React from "react";
 
 export const StoreFront: React.FC = () => {
   return (
     <>
       <div
-        className="h-[30vh] w-screen"
+        className="w-screen"
         style={{
-          backgroundImage:
-            'url("https://media.crystallize.com/frntr/22/6/8/1/big-sale-banner.jpg")',
-          backgroundPosition: "center",
-          filter: "blur(20px)",
-          height: "500px", // Adjust the height as needed
+          backgroundColor: '#f0efeb'
         }}
       >
         <Row>
-          <Col span={12}></Col>
           <Col span={12}>
-            <div className="z-10 self-end w-full pt-10 md:w-8/12 img-container img-contain md:py-0">
+            <Row align={'bottom'} justify={'center'}
+              className="h-1/2">
+              <Typography className="text-[3vw] font-semibold mb-4">
+                Convenience at your doorstep
+              </Typography>
+            </Row>
+            <Row align={'top'} justify={'space-evenly'} className="w-full text-center">
+              <Button type='primary' size='large'>
+                SHOP NOW
+              </Button>
+            </Row>
+          </Col>
+          <Col span={12}>
+            <Row className="z-10 self-end w-full h-full pt-10 md:w-8/12 img-container img-contain md:py-0">
               <figure className="w-full max-w-none">
                 <picture>
                   <source
@@ -54,7 +62,7 @@ export const StoreFront: React.FC = () => {
                 </picture>
                 <figcaption></figcaption>
               </figure>
-            </div>
+            </Row>
           </Col>
         </Row>
       </div>

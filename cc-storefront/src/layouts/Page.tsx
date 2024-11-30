@@ -19,11 +19,13 @@ const Page: React.FC<IProps> = ({ children }) => {
         className="w-full border-b-2 border-gray-200"
       >
         <Row align={"middle"} className="w-full">
+          {/* Icon */}
           <Col span={2}>
             <Row align={"middle"}>
               <Logo />
             </Row>
           </Col>
+          {/* Search bar */}
           <Col span={6}>
             <Row align={"middle"}>
               <Input.Search
@@ -33,15 +35,27 @@ const Page: React.FC<IProps> = ({ children }) => {
                 placeholder="Search for products, names, brands,... "
                 enterButton={<SearchOutlined />}
                 type="outlined"
-                size="large"
+                size="middle"
                 onSearch={() => {}}
               />
             </Row>
           </Col>
+          {/* Other items */}
           <Col span={16}>
             <Row justify={"space-evenly"} align={"middle"} className="h-full">
-              <Col span={4}>
-                <Row justify={"space-between"}>
+              <Col
+                span={16}
+                xs={{
+                  span: 14,
+                }}
+                xl={{
+                  span: 4,
+                }}
+                style={{
+                  marginLeft: "6px",
+                }}
+              >
+                <Row justify={"space-evenly"}>
                   <Link>
                     <Typography>Home</Typography>
                   </Link>
@@ -53,7 +67,12 @@ const Page: React.FC<IProps> = ({ children }) => {
                   </Link>
                 </Row>
               </Col>
-              <Col span={10}></Col>
+              <Col
+                span={0}
+                xl={{
+                  span: 14,
+                }}
+              ></Col>
               <Col>
                 <Row className="h-full" justify={"space-between"}>
                   <Col span={8}>
