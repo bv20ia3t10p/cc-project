@@ -27,11 +27,11 @@ export const ProductsSection = (props: Props) => {
                         navigation
                         pagination={{ clickable: true }}
                         spaceBetween={30}
-                        slidesPerView={4} // Number of items visible per view
+                        slidesPerView={6} // Number of items visible per view
                         breakpoints={{
-                            640: { slidesPerView: 1 },
-                            768: { slidesPerView: 2 },
-                            1024: { slidesPerView: 3 },
+                            640: { slidesPerView: 3 },
+                            768: { slidesPerView: 4 },
+                            1024: { slidesPerView: 5 },
                         }}
                         className="swiper-container"
                     >
