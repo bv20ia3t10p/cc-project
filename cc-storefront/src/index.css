@@ -23,7 +23,7 @@
 /* Apply white background and black arrows to Swiper navigation buttons */
 .swiper-button-next,
 .swiper-button-prev {
-  background-color: #fff; /* White background for the buttons */
+  background: 'transparent'; /* White background for the buttons */
   color: black; /* Black arrows */
 }
 

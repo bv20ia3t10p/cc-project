@@ -33,7 +33,7 @@ export const CategoriesSection = () => {
               </Button>
             </Col>
           }) : [1, 2, 3, 4, 5].map((_value, index) => {
-            return <Col><Skeleton.Node active={true} key={index} style={{
+            return <Col key={index} ><Skeleton.Node active={true} style={{
               width: 120,
               height: 40
             }} /></Col>

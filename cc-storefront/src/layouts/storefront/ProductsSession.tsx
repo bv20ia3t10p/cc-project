@@ -2,23 +2,23 @@ import { useProductService } from '@/hooks/useProductService';
 import { Button, Col, Row, Typography, Skeleton } from 'antd';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css/bundle'; // Import Swiper 
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 type Props = {};
 
 export const ProductsSection = (props: Props) => {
     const { productSummaries } = useProductService();
-
+    const navigate = useNavigate();
     return (
         <>
             {productSummaries.map((category) => (
                 <div key={category.category} className="pt-12 mx-[10vw] mb-12 border-t-2 border-gray-200">
                     {/* Category Header */}
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-2xl font-semibold capitalize">{category.category}</h2>
+                        <h2 className="text-2xl font-semibold capitalize">{category.category.replace('-', ' ')}</h2>
                         <Button type="link" className="text-gray-500 hover:text-blue-500">
-                            View all <h2 className='capitalize'>{category.category.toLowerCase()}</h2>
+                            View all <h2 className='capitalize'>{category.category.toLowerCase().replace('-', ' ')}</h2>
                         </Button>
                     </div>
                     <Typography className='mb-10'>
@@ -39,7 +39,14 @@ export const ProductsSection = (props: Props) => {
                     >
                         {category.products.map((product) => (
                             <SwiperSlide key={product.id} className="flex justify-center">
-                                <Col className="product-card bg-white shadow-md rounded-lg p-4 w-[250px] h-[320px] mb-24">
+                                <Col
+                                    onClick={() => {
+                                        navigate(`${category.category}/${product.id}`)
+                                    }}
+
+                                    style={{
+                                        cursor: 'pointer'
+                                    }} className="product-card bg-white shadow-md rounded-lg p-4 w-[250px] h-[320px] mb-24">
                                     {/* Image Skeleton or Image */}
                                     <ImageWithSkeleton src={product.thumbnail} alt={product.title} />
 
@@ -76,8 +83,8 @@ const ImageWithSkeleton = ({ src, alt }: { src: string; alt: string }) => {
                 <div className="w-full h-0 rounded-md ">
                     <Skeleton.Image
                         style={{
-                            height:'14em',
-                            width:'16em'
+                            height: '14em',
+                            width: '16em'
                         }}
                         active={loading}
                     /></div>

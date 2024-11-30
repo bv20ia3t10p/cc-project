@@ -14,7 +14,7 @@ const Page: React.FC<IProps> = ({ children }) => {
     <Layout className="min-h-screen">
       <AppHeader />
       <Content className="overflow-x-hidden bg-white">{children}</Content>
-      <Footer>
+      <Footer className="px-[10vw]">
         <Row>
           <Col span={20}>
             <Row className="w-24">

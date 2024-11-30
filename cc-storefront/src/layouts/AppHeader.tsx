@@ -9,7 +9,7 @@ type Props = {}
 export const AppHeader = (props: Props) => {
     return <Header
         style={{ backgroundColor: "white", display: "flex", height: "10vh" }}
-        className="w-full border-b-2 border-gray-200"
+        className="w-full px-[10vw] border-b-2 border-gray-200"
     >
         <Row align={"middle"} className="w-full">
             {/* Icon */}
