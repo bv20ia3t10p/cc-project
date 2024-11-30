@@ -11,7 +11,7 @@ export const StoreFront: React.FC = () => {
   return (
     <>
       <Banner />
-      <Breadcrumb className="mt-5 ml-48"
+      <Breadcrumb className="mt-5 ml-[10vw]"
         items={[
           { title: <><HomeOutlined /> Home</>, breadcrumbName: 'Home', path: '/' },
           { title: 'Products', breadcrumbName: 'Products', 'path': '/' }

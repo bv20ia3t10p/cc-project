@@ -9,7 +9,7 @@ type Props = {}
 export const CategoriesSection = () => {
   const { categories, isLoading, isError } = useCategoryService();
   return (
-    <Row className='flex-col ml-48'>
+    <Row className='flex-col ml-[10vw]'>
       <Row className='mt-2'>
         <Typography.Title level={3}>
           Browse categories
