@@ -10,7 +10,7 @@ export const ProductsSection = (props: Props) => {
     return (
         <>
             {productSummaries.map((category) => (
-                <div key={category.category} className="pt-12 mb-12 border-t-2 border-gray-200 mx-72">
+                <div key={category.category} className="pt-12 mx-48 mb-12 border-t-2 border-gray-200">
                     {/* Category Header */}
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-2xl font-semibold capitalize">{category.category}</h2>
@@ -26,8 +26,8 @@ export const ProductsSection = (props: Props) => {
                         modules={[Navigation, Pagination]}
                         navigation
                         pagination={{ clickable: true }}
-                        spaceBetween={2}
-                        slidesPerView={3} // Number of items visible per view
+                        spaceBetween={30}
+                        slidesPerView={4} // Number of items visible per view
                         breakpoints={{
                             640: { slidesPerView: 1 },
                             768: { slidesPerView: 2 },
@@ -36,7 +36,7 @@ export const ProductsSection = (props: Props) => {
                         className="swiper-container"
                     >
                         {category.products.map((product) => (
-                            <SwiperSlide key={product.id} className="flex justify-center px-20">
+                            <SwiperSlide key={product.id} className="flex justify-center">
                                 <Col className="product-card bg-white shadow-md rounded-lg p-4 w-full max-w-[250px] h-[320px] mb-24">
                                     <img
                                         src={product.thumbnail}

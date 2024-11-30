@@ -9,7 +9,7 @@ type Props = {}
 export const CategoriesSection = () => {
   const { categories, isLoading, isError } = useCategoryService();
   return (
-    <Row className='flex-col ml-72'>
+    <Row className='flex-col ml-48'>
       <Row className='mt-2'>
         <Typography.Title level={3}>
           Browse categories
@@ -27,7 +27,7 @@ export const CategoriesSection = () => {
                 width: 130,
                 marginTop: '1rem'
               }}
-                className='text-white bg-gray-700 '
+                className='bg-gray-500 text-gray-50 '
               >
                 {category.name}
               </Button>
