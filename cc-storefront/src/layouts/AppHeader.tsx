@@ -74,7 +74,9 @@ export const AppHeader = (props: Props) => {
                     <Col>
                         <Row className="h-full" justify={"space-between"}>
                             <Col span={8}>
-                                <Badge count={cartItems} overflowCount={99} size="default">
+                                <Badge count={cartItems} overflowCount={99} size="default" onClick={() => {
+                                    navigate("/payment");
+                                }}>
                                     <Button size={"large"} icon={<ShoppingCartOutlined />} />
                                 </Badge>
                             </Col>
