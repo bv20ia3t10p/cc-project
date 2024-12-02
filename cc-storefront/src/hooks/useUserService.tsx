@@ -1,12 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "../models/auth/User";
 import { UserApiClient } from "../utils/api/api-client/UserApiClient";
 import { App } from "antd";
 import { AuthApiClient } from "@/utils/api/api-client/AuthApiClient";
+import { useNavigate } from "react-router";
 
 export const useUserService = () => {
   const { message } = App.useApp();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
   const [user, setUser] = useState<User>(
     new User({
       username: "",
@@ -15,11 +18,21 @@ export const useUserService = () => {
       lastName: "",
       gender: "",
       image: "",
+      address: ""
     })
   );
   // Instantiate the API client
   const userApiClient = new UserApiClient();
   const authApiClient = new AuthApiClient();
+
+
+  useEffect(() => {
+    const account = localStorage.getItem('account');
+    if (account) {
+      setIsLoggedIn(true);
+      setUser(JSON.parse(account));
+    }
+  }, []);
 
   // Define the mutation for creating a user
   const {
@@ -31,7 +44,7 @@ export const useUserService = () => {
       message.open({
         content: "Registering your information",
         type: "loading",
-        key: "regiserUser",
+        key: "registerUser",
       });
       const data = userApiClient.createUser(userData).finally(() => {
         message.destroy("registerUser");
@@ -40,6 +53,7 @@ export const useUserService = () => {
     },
     onSuccess: () => {
       message.success("Created user successfully");
+      navigate("/login");
     },
     onError: () => {
       message.error("Failed to create use");
@@ -60,10 +74,14 @@ export const useUserService = () => {
       const data = authApiClient.loginUser(userData).finally(() => {
         message.destroy("loginUser");
       });
+      localStorage.setItem('account', JSON.stringify(data));
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       message.success("Login successfully");
+      localStorage.setItem('account', JSON.stringify(data));
+      setIsLoggedIn(true);
+      navigate('/');
     },
     onError: () => {
       message.error("Login failed, check your credentials");
@@ -79,5 +97,6 @@ export const useUserService = () => {
     login,
     isLoggingIn,
     isLoggingError,
+    isLoggedIn
   };
 };

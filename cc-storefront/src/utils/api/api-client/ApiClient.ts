@@ -38,7 +38,7 @@ export class ApiClient<T> implements IApiClient<T> {
       },
       (error) => {
         // Handle error responses globally
-        const statusCode: number = error.repsonse.status;
+        const statusCode: number = error.code;
         if (statusCode >= 500) return this.onInternalError(error);
         if (statusCode >= 400) return this.onBadRequest(error);
       }
@@ -89,7 +89,7 @@ export class ApiClient<T> implements IApiClient<T> {
     body?: Record<string, string>;
   }): Promise<T> {
     const response = await this.axiosInstance.put<T>(path, body, { params });
-    return response.data;
+    return response?.data;
   }
 
   public async delete({

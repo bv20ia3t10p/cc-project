@@ -11,7 +11,7 @@ export class HeaderConfiguration {
   public toHeaders() {
     return {
       "Content-Type": this.contentType,
-      Authroization: this.auth,
+      Authorization: this.auth,
     };
   }
 }

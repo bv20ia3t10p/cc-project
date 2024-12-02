@@ -1,12 +1,15 @@
 import Logo from '@/components/Logo';
-import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
-import { Row, Col, Input, Typography, Badge, Button } from 'antd';
+import { useUserService } from '@/hooks/useUserService';
+import { SearchOutlined, SettingOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import { Row, Col, Input, Typography, Badge, Button, Dropdown, Menu, Avatar } from 'antd';
 import { Header } from 'antd/es/layout/layout';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 type Props = {}
 
 export const AppHeader = (props: Props) => {
+    const { isLoggedIn, user } = useUserService();
+    const navigate = useNavigate();
     return <Header
         style={{ backgroundColor: "white", display: "flex", height: "10vh" }}
         className="w-full px-[10vw] border-b-2 border-gray-200"
@@ -73,7 +76,24 @@ export const AppHeader = (props: Props) => {
                                 </Badge>
                             </Col>
                             <Col span={8}>
-                                <Button size="large" icon={<UserOutlined />} />
+                                {isLoggedIn ?
+                                    <Dropdown overlay={<Menu >
+                                        <Menu.Item key="1" onClick={() => alert('Change Account Info')}>
+                                            Change Account Information
+                                        </Menu.Item>
+                                        <Menu.Item key="2" onClick={() => {
+                                            localStorage.clear();
+                                            window.location.reload();
+                                        }}>
+                                            Log Out
+                                        </Menu.Item>
+                                    </Menu>} trigger={['click']}>
+                                        <Button size="large" icon={<SettingOutlined />} />
+                                    </Dropdown>
+                                    : <Button size="large" onClick={() => {
+                                        navigate('/login');
+                                    }} icon={<UserOutlined />} />
+                                }
                             </Col>
                         </Row>
                     </Col>

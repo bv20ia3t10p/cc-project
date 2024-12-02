@@ -10,7 +10,7 @@ export const useProductService = () => {
     const apiClient = new ProductsApiClient();
     const singleProductApiClient = new ProductApiClient();
     const { productId } = useParams<{ productId: string }>();
-
+    
     // Query for a single product
     const {
         data: product,

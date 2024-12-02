@@ -5,7 +5,7 @@ import { HeaderConfiguration } from "@/models/api/HeaderConfiguration";
 
 export class CategoryApiClient extends ApiClient<Array<Category>> {
   constructor() {
-    const categoryUrl = Environment.getEnvVariable("PRODUCT_SERVICE");
+    const categoryUrl = 'https://dummyjson.com/products';
     super(categoryUrl, new HeaderConfiguration());
   }
   getAllCategories() {
