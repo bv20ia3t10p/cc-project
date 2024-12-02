@@ -5,13 +5,14 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import axios from "axios";
 import CheckoutComponent from "./CheckoutComponent";
+const paymentApi = import.meta.env["PAYMENT_API"];
 
 export const CheckoutPage: React.FC = () => {
     const [stripePromise, setStripePromise] = useState<any>(null);
 
     useEffect(() => {
         const getPublishKey = async () => {
-            const res = await axios.get("http://localhost:5000/stripe/publish-key");
+            const res = await axios.get(`${paymentApi}/publish-key`);
             const { publishKey } = res.data;
             const stripe = await loadStripe(publishKey);
             setStripePromise(stripe);

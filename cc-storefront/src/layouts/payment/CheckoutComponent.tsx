@@ -3,6 +3,7 @@ import { Button, Flex, Form, Image, Input, Row, Typography } from "antd";
 import useCartStore from "@/zustand/store";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
+const paymentApi = import.meta.env["PAYMENT_API"];
 
 export const CheckoutComponent: React.FC = () => {
     const stripe = useStripe();
@@ -25,7 +26,7 @@ export const CheckoutComponent: React.FC = () => {
         }
 
         // Create the PaymentIntent and obtain clientSecret from your server endpoint
-        const res = await axios.post("http://localhost:5000/stripe/payment", { cart: cartItems });
+        const res = await axios.post(`${paymentApi}/payment`, { cart: cartItems });
         const { clientSecret: clientSecret } = await res.data;
         clearCart();
 
