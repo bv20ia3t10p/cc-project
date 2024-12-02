@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Flex, Form, Image, Input, Row, Typography } from "antd";
 import useCartStore from "@/zustand/store";
 import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import axios from "axios";
 import CheckoutComponent from "./CheckoutComponent";
-const paymentApi = import.meta.env["PAYMENT_API"];
+const paymentApi = 'https://simplesocialds.me/stripe';
 
 export const CheckoutPage: React.FC = () => {
     const [stripePromise, setStripePromise] = useState<any>(null);
