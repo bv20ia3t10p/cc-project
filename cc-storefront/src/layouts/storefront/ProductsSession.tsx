@@ -11,10 +11,10 @@ export const ProductsSection = (props: Props) => {
     const { isLoading, productSummaries } = useProductService();
     const navigate = useNavigate();
     return (
-        <><Skeleton
+        <>{isLoading && <Skeleton
             active={isLoading}
             paragraph={{ rows: 20 }}
-            className='w-full' />
+            className='mx-[10vw]' />}
             {productSummaries.map((category) => (
                 <div key={category.category} className="pt-12 mx-[10vw] mb-12 border-t-2 border-gray-200">
                     {/* Category Header */}
