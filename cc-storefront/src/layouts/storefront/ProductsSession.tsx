@@ -14,7 +14,7 @@ export const ProductsSection = (props: Props) => {
         <>{isLoading && <Skeleton
             active={isLoading}
             paragraph={{ rows: 20 }}
-            className='mx-[10vw]' />}
+            className='px-[10vw]' />}
             {productSummaries.map((category) => (
                 <div key={category.category} className="pt-12 mx-[10vw] mb-12 border-t-2 border-gray-200">
                     {/* Category Header */}
