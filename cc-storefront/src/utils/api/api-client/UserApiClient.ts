@@ -5,7 +5,7 @@ import { ApiClient } from "@/utils/api/api-client/ApiClient";
 
 export class UserApiClient extends ApiClient<User> {
   constructor() {
-    const userServiceUrl = Environment.getEnvVariable("USER_SERVICE");
+    const userServiceUrl = Environment.getEnvVariable("USERA_SERVICE");
     super(userServiceUrl, new HeaderConfiguration());
   }
   public createUser(registerUser: User) {
