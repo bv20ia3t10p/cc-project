@@ -8,10 +8,12 @@ import { useNavigate } from 'react-router';
 type Props = {};
 
 export const ProductsSection = (props: Props) => {
-    const { productSummaries } = useProductService();
+    const { isLoading, productSummaries } = useProductService();
     const navigate = useNavigate();
     return (
-        <>
+        <><Skeleton
+            loading={isLoading}
+            className='w-full h-72' />
             {productSummaries.map((category) => (
                 <div key={category.category} className="pt-12 mx-[10vw] mb-12 border-t-2 border-gray-200">
                     {/* Category Header */}
