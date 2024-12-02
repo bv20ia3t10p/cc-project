@@ -4,12 +4,15 @@ import { SearchOutlined, SettingOutlined, ShoppingCartOutlined, UserOutlined } f
 import { Row, Col, Input, Typography, Badge, Button, Dropdown, Menu, Avatar } from 'antd';
 import { Header } from 'antd/es/layout/layout';
 import { Link, useNavigate } from 'react-router';
+import useCartStore from "@/zustand/store"; // Update this import path based on your project structure
 
-type Props = {}
+
+type Props = {};
 
 export const AppHeader = (props: Props) => {
     const { isLoggedIn, user } = useUserService();
     const navigate = useNavigate();
+    const cartItems = useCartStore((state) => state.cartItems.length);
     return <Header
         style={{ backgroundColor: "white", display: "flex", height: "10vh" }}
         className="w-full px-[10vw] border-b-2 border-gray-200"
@@ -100,7 +103,5 @@ export const AppHeader = (props: Props) => {
                 </Row>
             </Col>
         </Row>
-    </Header>;
-
-
+    </Header>
 }

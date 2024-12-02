@@ -4,20 +4,17 @@ import { IApiClient } from "@/utils/api/api-client/IApiClient";
 import { IApiClientException } from "@/utils/api/exceptions/ApiClientException";
 
 export class ApiClient<T> implements IApiClient<T> {
-  private axiosInstance: AxiosInstance;
+    private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    headerConfiguration: HeaderConfiguration = new HeaderConfiguration()
-  ) {
-    const config: AxiosRequestConfig = {
-      baseURL: baseUrl,
-      headers: headerConfiguration.toHeaders(),
-      withCredentials: false,
-    };
-    this.axiosInstance = axios.create(config);
-    this.setupInterceptors();
-  }
+    constructor(baseUrl: string, headerConfiguration: HeaderConfiguration = new HeaderConfiguration()) {
+        const config: AxiosRequestConfig = {
+            baseURL: baseUrl,
+            headers: headerConfiguration.toHeaders(),
+            withCredentials: false,
+        };
+        this.axiosInstance = axios.create(config);
+        this.setupInterceptors();
+    }
 
   private setupInterceptors(): void {
     // Request interceptor
@@ -45,61 +42,33 @@ export class ApiClient<T> implements IApiClient<T> {
     );
   }
 
-  onBadRequest(exception: IApiClientException): Promise<T> {
-    console.log("Request error: ", exception);
-    return Promise.reject(exception);
-  }
+    onBadRequest(exception: IApiClientException): Promise<T> {
+        console.log("Request error: ", exception);
+        return Promise.reject(exception);
+    }
 
-  onInternalError(exception: IApiClientException): Promise<T> {
-    console.log("Request error: ", exception);
-    throw new Error("Method not implemented.");
-  }
+    onInternalError(exception: IApiClientException): Promise<T> {
+        console.log("Request error: ", exception);
+        throw new Error("Method not implemented.");
+    }
 
-  public async get({
-    path,
-    params,
-  }: {
-    path: string;
-    params?: Record<string, string>;
-  }): Promise<T> {
-    const response = await this.axiosInstance.get<T>(path, { params });
-    return response.data;
-  }
+    public async get({ path, params }: { path: string; params?: Record<string, string> }): Promise<T> {
+        const response = await this.axiosInstance.get<T>(path, { params });
+        return response.data;
+    }
 
-  public async post({
-    path,
-    params,
-    body,
-  }: {
-    path: string;
-    params?: Record<string, string>;
-    body?: Record<string, string>;
-  }): Promise<T> {
-    const response = await this.axiosInstance.post<T>(path, body, { params });
-    return response.data;
-  }
+    public async post({ path, params, body }: { path: string; params?: Record<string, string>; body?: Record<string, string> }): Promise<T> {
+        const response = await this.axiosInstance.post<T>(path, body, { params });
+        return response.data;
+    }
 
-  public async put({
-    path,
-    params,
-    body,
-  }: {
-    path: string;
-    params?: Record<string, string>;
-    body?: Record<string, string>;
-  }): Promise<T> {
-    const response = await this.axiosInstance.put<T>(path, body, { params });
-    return response?.data;
-  }
+    public async put({ path, params, body }: { path: string; params?: Record<string, string>; body?: Record<string, string> }): Promise<T> {
+        const response = await this.axiosInstance.put<T>(path, body, { params });
+        return response.data;
+    }
 
-  public async delete({
-    path,
-    params,
-  }: {
-    path: string;
-    params?: Record<string, string>;
-  }): Promise<T> {
-    const response = await this.axiosInstance.delete<T>(path, { params });
-    return response.data;
-  }
+    public async delete({ path, params }: { path: string; params?: Record<string, string> }): Promise<T> {
+        const response = await this.axiosInstance.delete<T>(path, { params });
+        return response.data;
+    }
 }
