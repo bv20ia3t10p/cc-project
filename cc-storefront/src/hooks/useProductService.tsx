@@ -16,7 +16,8 @@ export const useProductService = () => {
         data: product,
         isLoading: isLoadingProduct,
         isError: isProductQueryError,
-        error: productError
+        error: productError,
+        refetch
     } = useQuery({
         queryKey: ['product', productId], // Dynamic query key based on product ID
         queryFn: () => singleProductApiClient.getProductById(Number(productId)),
@@ -100,6 +101,7 @@ export const useProductService = () => {
         isLoading, // Loading state for all products
         isError, // Error state for all products
         isProductQueryError, // Error state for single product
-        productError, // Error details for single product
+        productError,
+        refetch // Error details for single product
     };
 };

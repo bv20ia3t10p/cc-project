@@ -17,7 +17,7 @@ const { Text } = Typography;
 type Props = {}
 
 export const ProductPage = (props: Props) => {
-    const { product } = useProductService();
+    const { product, refetch } = useProductService();
     console.log(product);
 
     const [rating, setRating] = useState(0);
@@ -94,6 +94,7 @@ export const ProductPage = (props: Props) => {
         } else {
             message.error("Please upload at least one image.");
         }
+        refetch();
     };
     // Helper function to round the average rating
     const getAverageRating = () => {
