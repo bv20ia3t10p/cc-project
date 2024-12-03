@@ -10,7 +10,7 @@ import useCartStore from "@/zustand/store"; // Update this import path based on 
 type Props = {};
 
 export const AppHeader = (props: Props) => {
-    const { isLoggedIn, isSuccess } = useUserService();
+    const { isLoggedIn } = useUserService();
     const navigate = useNavigate();
     const cartItems = useCartStore((state) => state.cartItems.length);
     return <Header
@@ -81,7 +81,7 @@ export const AppHeader = (props: Props) => {
                                 </Badge>
                             </Col>
                             <Col span={8}>
-                                {(isLoggedIn || isSuccess) ?
+                                {isLoggedIn  ?
                                     <Dropdown overlay={<Menu >
                                         <Menu.Item key="1" onClick={() => alert('Change Account Info')}>
                                             Change Account Information
