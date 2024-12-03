@@ -10,6 +10,7 @@ import { ProductsSection } from "./ProductsSession";
 export const StoreFront: React.FC = () => {
     return (
         <>
+            <h1>Đây là Stage Đừng có vô!!!!!!!</h1>
             <Banner />
             <Breadcrumb
                 className="mt-5 ml-[10vw]"
