@@ -249,7 +249,6 @@ export const ProductPage = (props: Props) => {
                                 </Col>
                             </Row>
                         </Panel>
-                        <Panel key="4" header={<Typography.Title level={2}>Comments</Typography.Title>} className="bg-white"></Panel>
                     </Collapse>
                 </Col>
                 <Col span={10}>

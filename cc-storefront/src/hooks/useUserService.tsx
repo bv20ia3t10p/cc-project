@@ -26,13 +26,6 @@ export const useUserService = () => {
   const authApiClient = new AuthApiClient();
 
 
-  useEffect(() => {
-    const account = localStorage.getItem('account');
-    if (account) {
-      setIsLoggedIn(true);
-      setUser(JSON.parse(account));
-    }
-  }, []);
 
   // Define the mutation for creating a user
   const {
@@ -64,6 +57,7 @@ export const useUserService = () => {
     mutate: login,
     isPending: isLoggingIn,
     isError: isLoggingError,
+    isSuccess
   } = useMutation({
     mutationFn: (userData: User) => {
       message.open({
@@ -87,6 +81,15 @@ export const useUserService = () => {
       message.error("Login failed, check your credentials");
     },
   });
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    const account = localStorage.getItem('account');
+    if (account) {
+      setIsLoggedIn(true);
+      setUser(JSON.parse(account));
+    }
+  }, [isSuccess]);
 
   return {
     user,
