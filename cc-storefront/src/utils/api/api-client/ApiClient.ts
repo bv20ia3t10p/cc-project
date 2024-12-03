@@ -16,31 +16,31 @@ export class ApiClient<T> implements IApiClient<T> {
         this.setupInterceptors();
     }
 
-    private setupInterceptors(): void {
-        // Request interceptor
-        this.axiosInstance.interceptors.request.use(
-            (config) => {
-                return config;
-            },
-            (error) => {
-                console.log("Request error: ", error);
-                return Promise.reject(error);
-            }
-        );
-        // Response interceptor
-        this.axiosInstance.interceptors.response.use(
-            (response: AxiosResponse) => {
-                // Handle successful responses
-                return response;
-            },
-            (error) => {
-                // Handle error responses globally
-                const statusCode: number = error.repsonse.status;
-                if (statusCode >= 500) return this.onInternalError(error);
-                if (statusCode >= 400) return this.onBadRequest(error);
-            }
-        );
-    }
+  private setupInterceptors(): void {
+    // Request interceptor
+    this.axiosInstance.interceptors.request.use(
+      (config) => {
+        return config;
+      },
+      (error) => {
+        console.log("Request error: ", error);
+        return Promise.reject(error);
+      }
+    );
+    // Response interceptor
+    this.axiosInstance.interceptors.response.use(
+      (response: AxiosResponse) => {
+        // Handle successful responses
+        return response;
+      },
+      (error) => {
+        // Handle error responses globally
+        const statusCode: number = error.code;
+        if (statusCode >= 500) return this.onInternalError(error);
+        if (statusCode >= 400) return this.onBadRequest(error);
+      }
+    );
+  }
 
     onBadRequest(exception: IApiClientException): Promise<T> {
         console.log("Request error: ", exception);

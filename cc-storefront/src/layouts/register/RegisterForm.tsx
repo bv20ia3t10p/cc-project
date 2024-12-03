@@ -1,3 +1,5 @@
+import { useUserService } from "@/hooks/useUserService";
+import { User } from "@/models/auth/User";
 import {
   HomeOutlined,
   KeyOutlined,
@@ -5,21 +7,13 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Splitter, Typography } from "antd";
-import { useEffect } from "react";
 import Link from "antd/es/typography/Link";
-import { User } from "@/models/auth/User";
-import { usePageLayout } from "@/hooks/usePageLayout";
-import { useUserService } from "@/hooks/useUserService";
 
 const RegisterForm: React.FC = () => {
   const { user, createUser, isPending } = useUserService();
-  const { hideHeader } = usePageLayout();
   const [form] = Form.useForm();
-  useEffect(() => {
-    hideHeader();
-  }, [hideHeader]);
   return (
-    <div className="container max-w-2xl p-8 mx-auto bg-white shadow-xl">
+    <div className="container max-w-2xl p-8 mx-auto my-12 bg-white shadow-xl">
       <Form
         disabled={isPending}
         form={form}

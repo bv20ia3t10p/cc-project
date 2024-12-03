@@ -5,7 +5,7 @@ import { ApiClient } from "@/utils/api/api-client/ApiClient";
 
 export class AuthApiClient extends ApiClient<User> {
   constructor() {
-    const authServiceUrl = Environment.getEnvVariable("AUTH_SERVICE");
+    const authServiceUrl = Environment.getEnvVariable("USERA_SERVICE");
     super(authServiceUrl, new HeaderConfiguration());
   }
   loginUser(userData: User): Promise<User> {

@@ -1,12 +1,17 @@
-import { useProductService } from "@/hooks/useProductService";
-import { Col, Row, Skeleton, Typography, Collapse, Divider, Breadcrumb, Button, message } from "antd";
-import React, { useState } from "react";
-import { Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import dayjs from "dayjs"; // for date formatting
-import { CarOutlined, DeliveredProcedureOutlined, HeartOutlined, HomeOutlined } from "@ant-design/icons";
-import { Link } from "react-router";
+import { useProductService } from '@/hooks/useProductService';
+import { useReviewService } from '@/hooks/useReviewService';
+import { Review } from '@/models/products/Product';
+import { Environment } from '@/utils/env/Environment';
+import { CalendarOutlined, CarOutlined, DeliveredProcedureOutlined, HeartOutlined, HomeOutlined, MailOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons';
+import { App, Breadcrumb, Button, Col, Collapse, Divider, Form, Rate, Row, Skeleton, Typography, Upload, message } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import dayjs from 'dayjs'; // for date formatting
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import useCartStore from "@/zustand/store";
+
 
 const { Panel } = Collapse;
 const { Text } = Typography;
@@ -14,9 +19,85 @@ const { Text } = Typography;
 type Props = {};
 
 export const ProductPage = (props: Props) => {
-    const { product, isLoadingProduct } = useProductService();
+    const { product, refetch, isLoadingProduct } = useProductService();
     const addToCart = useCartStore((state) => state.addToCart);
 
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+    const [image, setImage] = useState<any>(null);
+    const { postReview } = useReviewService();
+    const { message } = App.useApp();
+
+    // Handle form submission
+    const handleSubmit = async () => {
+        if (!rating || !comment) {
+            message.error("Rating and comment are required.");
+            return;
+        }
+
+        if (image?.fileList?.length) {
+            let uploadedImages: string = '';
+            for (const file of image.fileList) {
+                const formData = new FormData();
+                formData.append("file", file.originFileObj); // Use `originFileObj` for the raw file object
+                message.open({
+                    key: 'postingImage',
+                    content: 'Posting your review with image',
+                    type: 'loading'
+                })
+                try {
+                    const response = await fetch(
+                        `${Environment.getEnvVariable('IMAGE_SERVICE')}/upload`,
+                        {
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('account')
+                                    ? JSON.parse(localStorage.getItem('account') ?? "{}").accessToken
+                                    : ""
+                                    }`,
+                            },
+                            body: formData,
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(`Upload failed with status ${response.status}`);
+                    }
+                    message.success('Upload image successfully');
+                    const data = await response.json();
+                    uploadedImages = data.imageUrl // Adjust this key based on API response
+                } catch (error) {
+                    console.error("Image upload failed:", error);
+                    message.error("Failed to upload image. Please try again.");
+                    return; // Stop further execution if image upload fails
+                }
+            }
+            message.destroy('postingImage');
+            // Proceed to submit the review
+            const review = new Review({
+                rating,
+                comment,
+                images: uploadedImages,
+                reviewerName: "John Doe", // Replace with actual user data
+                reviewerEmail: "john.doe@example.com", // Replace with actual user email
+                date: new Date().toISOString(),
+            });
+
+            try {
+                await postReview({ productId: product?.id ?? 0, review });
+                message.success("Review submitted successfully!");
+                setRating(0);
+                setComment("");
+                setImage(null);
+            } catch (error) {
+                console.error("Failed to submit review:", error);
+                message.error("Failed to submit review.");
+            }
+        } else {
+            message.error("Please upload at least one image.");
+        }
+        refetch();
+    };
     // Helper function to round the average rating
     const getAverageRating = () => {
         const ratings = product?.reviews.map((review) => review.rating);
@@ -113,17 +194,61 @@ export const ProductPage = (props: Props) => {
                         <Panel header={<Typography.Title level={2}>Dimensions</Typography.Title>} key="2" className="bg-white">
                             {renderDimensions()}
                         </Panel>
-                        <Panel key="3" header={<Typography.Title level={2}>Metadata</Typography.Title>} className="bg-white">
+                        <Panel key='4' header={
+                            <Typography.Title level={2}>
+                                Comments
+                            </Typography.Title>
+                        } className='bg-white'>
+                            {product?.reviews.map((r, i) => <Row key={i} className='mb-6'>
+                                <Col>
+                                    <Row>
+                                        <UserOutlined className='mr-2' />{r.reviewerName}
+                                    </Row>
+                                    <Row>
+                                        <MailOutlined className='mr-2' />{r.reviewerEmail}
+                                    </Row>
+                                    <Row>
+                                        <CalendarOutlined className='mr-2' />{formatDate(r.date)}
+                                    </Row>
+                                    <Rate disabled className='my-2' value={r.rating} />
+                                    <Row>
+                                        {r.images ? <ImageWithSkeleton src={r.images ?? ""} alt={'Review image'} /> : <></>}
+                                    </Row>
+                                    <Row>{r.comment}</Row>
+                                </Col>
+                            </Row>)}
                             <Row>
-                                <Col span={12}>Posted Date: </Col>
-                                {formatDate(product?.meta.createdAt ?? "")}{" "}
-                            </Row>
-                            <Row>
-                                <Col span={12}>Updated Date: </Col>
-                                {formatDate(product?.meta.updatedAt ?? "")}
+                                <Col>
+                                    <Form>
+                                        <Typography.Title level={3}>
+                                            Add your own comment
+                                        </Typography.Title>
+                                        <Row>
+                                            <Rate value={rating} onChange={setRating} />
+                                        </Row>
+                                        <TextArea className='mt-4' size='large' onChange={(e) => setComment(e.target.value)} />
+                                        <Row className='mt-4'>
+                                            <Upload
+                                                listType="picture"
+                                                beforeUpload={(file) => {
+                                                    setImage({ fileList: [file] });
+                                                    return false; // Prevent auto upload
+                                                }}
+                                                onChange={({ fileList }) => setImage({ fileList })}
+                                                showUploadList={{ showRemoveIcon: true }}
+                                                accept="image/*"
+                                                maxCount={1}
+                                            >
+                                                <Button icon={<UploadOutlined />}>Upload Image</Button>
+                                            </Upload>
+                                        </Row>
+                                        <Row className='mt-4'>
+                                            <Button type="primary" onClick={handleSubmit}>Submit Review</Button>
+                                        </Row>
+                                    </Form>
+                                </Col>
                             </Row>
                         </Panel>
-                        <Panel key="4" header={<Typography.Title level={2}>Comments</Typography.Title>} className="bg-white"></Panel>
                     </Collapse>
                 </Col>
                 <Col span={10}>
@@ -137,10 +262,12 @@ export const ProductPage = (props: Props) => {
                     <Typography.Title level={1}>{product?.title}</Typography.Title>
                     <Row>{product?.description}</Row>
                     <Divider />
-                    <del className="text-xl font-semibold text-gray-400 ">${product?.price}</del>
-                    <Typography.Title level={1} className="flex items-center mt-4 text-center">
-                        €{((product?.price ?? 1) * (1 - (product?.discountPercentage ?? 0) / 100)).toFixed(2)}{" "}
-                        <span className="p-1 ml-4 text-xl text-center text-gray-500 bg-gray-100 rounded-md">-{product?.discountPercentage}%</span>{" "}
+                    <del className='text-xl font-semibold text-gray-400 '>
+                        €{product?.price}
+                    </del>
+                    <Typography.Title level={1} className='flex items-center mt-4 text-center'>
+                        €{((product?.price ?? 1) * (1 - (product?.discountPercentage ?? 0) / 100)).toFixed(2)}
+                        <span className="p-1 ml-4 text-xl text-center text-gray-500 bg-gray-100 rounded-md">-{product?.discountPercentage}%</span>
                     </Typography.Title>
                     <Button type="primary" className="w-3/4 my-4" size="large" onClick={handleAddToCart} disabled={isLoadingProduct}>
                         Add to cart

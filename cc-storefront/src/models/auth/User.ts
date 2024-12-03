@@ -12,6 +12,7 @@ export class User extends Entity {
   public lastName: string;
   public gender: string;
   public image: string;
+  public address: string;
   public accessToken: string = "";
   public refreshToken: string = "";
   public roles: Array<string> = User.defaultUserRole;
@@ -22,6 +23,7 @@ export class User extends Entity {
     firstName,
     lastName,
     gender,
+    address,
     image,
     id = -1,
     accessToken = "",
@@ -33,6 +35,7 @@ export class User extends Entity {
     username: string;
     email: string;
     firstName: string;
+    address: string;
     lastName: string;
     gender: string;
     image: string;
@@ -51,6 +54,7 @@ export class User extends Entity {
     this.image = image;
     this.lastName = lastName;
     this.id = id;
+    this.address = address;
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
     this.roles = roles;
