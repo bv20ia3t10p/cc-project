@@ -100,6 +100,7 @@ export const useUserService = () => {
     login,
     isLoggingIn,
     isLoggingError,
-    isLoggedIn
+    isLoggedIn,
+    isSuccess
   };
 };

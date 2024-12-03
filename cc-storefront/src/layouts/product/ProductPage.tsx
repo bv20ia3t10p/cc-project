@@ -263,7 +263,7 @@ export const ProductPage = (props: Props) => {
                     <Row>{product?.description}</Row>
                     <Divider />
                     <del className='text-xl font-semibold text-gray-400 '>
-                        ${product?.price}
+                        €{product?.price}
                     </del>
                     <Typography.Title level={1} className='flex items-center mt-4 text-center'>
                         €{((product?.price ?? 1) * (1 - (product?.discountPercentage ?? 0) / 100)).toFixed(2)}
