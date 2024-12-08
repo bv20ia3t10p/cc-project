@@ -5,7 +5,7 @@ import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import axios from "axios";
 import CheckoutComponent from "./CheckoutComponent";
-const paymentApi = 'https://simplesocialds.me/stripe';
+const paymentApi = "https://simplesocialds.me/is402/stripe";
 
 export const CheckoutPage: React.FC = () => {
     const [stripePromise, setStripePromise] = useState<any>(null);
