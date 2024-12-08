@@ -3,7 +3,7 @@ import { Button, Flex, Form, Image, Input, Row, Typography } from "antd";
 import useCartStore from "@/zustand/store";
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
-const paymentApi = "https://simplesocialds.me/stripe";
+const paymentApi = "https://simplesocialds.me/is402/stripe";
 
 export const CheckoutComponent: React.FC = () => {
     const stripe = useStripe();
